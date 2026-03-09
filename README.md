@@ -1,1 +1,52 @@
 # action_test
+本项目用于测试github action
+## feishu-bot-action
+仓库链接：https://github.com/Apale7/feishu-bot-action
+
+### action.yml
+```yaml
+name: 'feishu-bot'
+version: '1.0.0'
+author: 'feishu-bot'
+description: 'Send notifications to Feishu bot from CodeArts pipeline'
+
+inputs:
+  bot-type:
+    description: '机器人类型: custom (自定义机器人) 或 app (自建应用)'
+    required: true
+    default: 'custom'
+  
+  webhook-url:
+    description: '自定义机器人 Webhook URL (bot-type=custom 时需要，通过隐私变量注入)'
+    required: false
+  
+  app-id:
+    description: '飞书应用 ID (bot-type=app 时需要)'
+    required: false
+  app-secret:
+    description: '飞书应用 Secret (bot-type=app 时需要，通过隐私变量注入)'
+    required: false
+  receive-type:
+    description: '接收者 ID 类型: chat_id, open_id, user_id, union_id (bot-type=app 时需要)'
+    required: false
+    default: 'chat_id'
+  receive-id:
+    description: '接收者 ID，群聊 ID 或用户 ID (bot-type=app 时需要)'
+    required: false
+  
+  msg-type:
+    description: '消息类型: text, post, interactive, image 等'
+    required: true
+    default: 'text'
+  message:
+    description: '消息内容，文本或 JSON 字符串'
+    required: true
+
+outputs:
+  ok:
+    description: '消息是否发送成功'
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+```

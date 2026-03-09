@@ -1,0 +1,114 @@
+name: Test Feishu Bot Action
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      bot-type:
+        description: '机器人类型'
+        required: true
+        default: 'custom'
+        type: choice
+        options:
+          - custom
+          - app
+      message:
+        description: '测试消息内容'
+        required: true
+        default: 'GitHub Action 测试消息'
+        type: string
+
+jobs:
+  test-custom-bot:
+    name: 测试自定义机器人
+    runs-on: ubuntu-latest
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.bot-type == 'custom'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Send test message (Custom Bot)
+        uses: Apale7/feishu-bot-action@main
+        with:
+          bot-type: 'custom'
+          webhook-url: ${{ secrets.FEISHU_WEBHOOK_URL }}
+          msg-type: 'text'
+          message: |
+            🚀 GitHub Action 测试通知
+            仓库: ${{ github.repository }}
+            分支: ${{ github.ref_name }}
+            触发者: ${{ github.actor }}
+            事件: ${{ github.event_name }}
+            提交: ${{ github.sha }}
+
+  test-app-bot:
+    name: 测试自建应用
+    runs-on: ubuntu-latest
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.bot-type == 'app'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Send test message (App Bot)
+        uses: Apale7/feishu-bot-action@main
+        with:
+          bot-type: 'app'
+          app-id: ${{ secrets.FEISHU_APP_ID }}
+          app-secret: ${{ secrets.FEISHU_APP_SECRET }}
+          receive-type: 'chat_id'
+          receive-id: ${{ secrets.FEISHU_RECEIVE_ID }}
+          msg-type: 'text'
+          message: |
+            🚀 GitHub Action 测试通知 (自建应用)
+            仓库: ${{ github.repository }}
+            分支: ${{ github.ref_name }}
+            触发者: ${{ github.actor }}
+            事件: ${{ github.event_name }}
+            提交: ${{ github.sha }}
+
+  test-interactive-message:
+    name: 测试交互式卡片消息
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.bot-type == 'custom'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Send interactive card message
+        uses: Apale7/feishu-bot-action@main
+        with:
+          bot-type: 'custom'
+          webhook-url: ${{ secrets.FEISHU_WEBHOOK_URL }}
+          msg-type: 'interactive'
+          message: |
+            {
+              "config": {
+                "wide_screen_mode": true
+              },
+              "elements": [
+                {
+                  "tag": "div",
+                  "text": {
+                    "content": "**GitHub Action 测试**\n仓库: ${{ github.repository }}\n分支: ${{ github.ref_name }}",
+                    "tag": "lark_md"
+                  }
+                },
+                {
+                  "tag": "action",
+                  "actions": [
+                    {
+                      "tag": "button",
+                      "text": {
+                        "content": "查看详情",
+                        "tag": "plain_text"
+                      },
+                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+                      "type": "primary"
+                    }
+                  ]
+                }
+              ]
+            }
