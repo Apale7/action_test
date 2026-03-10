@@ -33,7 +33,7 @@ jobs:
           app-id: ${{ secrets.FEISHU_APP_ID }}
           app-secret: ${{ secrets.FEISHU_APP_SECRET }}
           receive-type: 'chat_id'
-          receive-id: oc_934c7dc526391bf74ac12ee55409675c
+          receive-id: oc_5329afa4f23cc0422c444fcd409f69cf
           msg-type: 'interactive'
           message: |
             {
@@ -115,7 +115,7 @@ jobs:
           app-id: ${{ secrets.FEISHU_APP_ID }}
           app-secret: ${{ secrets.FEISHU_APP_SECRET }}
           receive-type: 'chat_id'
-          receive-id: oc_934c7dc526391bf74ac12ee55409675c
+          receive-id: oc_5329afa4f23cc0422c444fcd409f69cf
           msg-type: 'interactive'
           message: |
             {
@@ -199,7 +199,7 @@ jobs:
           app-id: ${{ secrets.FEISHU_APP_ID }}
           app-secret: ${{ secrets.FEISHU_APP_SECRET }}
           receive-type: 'chat_id'
-          receive-id: oc_934c7dc526391bf74ac12ee55409675c
+          receive-id: oc_5329afa4f23cc0422c444fcd409f69cf
           msg-type: 'interactive'
           message: |
             {
