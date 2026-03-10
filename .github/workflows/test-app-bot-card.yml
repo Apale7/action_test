@@ -33,7 +33,7 @@ jobs:
           app-id: ${{ secrets.FEISHU_APP_ID }}
           app-secret: ${{ secrets.FEISHU_APP_SECRET }}
           receive-type: 'chat_id'
-          receive-id: ${{ secrets.FEISHU_CHAT_ID }}
+          receive-id: oc_934c7dc526391bf74ac12ee55409675c
           msg-type: 'interactive'
           message: |
             {
@@ -199,7 +199,7 @@ jobs:
           app-id: ${{ secrets.FEISHU_APP_ID }}
           app-secret: ${{ secrets.FEISHU_APP_SECRET }}
           receive-type: 'chat_id'
-          receive-id: ${{ secrets.FEISHU_CHAT_ID }}
+          receive-id: oc_934c7dc526391bf74ac12ee55409675c
           msg-type: 'interactive'
           message: |
             {
