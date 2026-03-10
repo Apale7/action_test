@@ -59,7 +59,7 @@ jobs:
           app-id: ${{ secrets.FEISHU_APP_ID }}
           app-secret: ${{ secrets.FEISHU_APP_SECRET }}
           receive-type: 'chat_id'
-          receive-id: ${{ secrets.FEISHU_RECEIVE_ID }}
+          receive-id: oc_5329afa4f23cc0422c444fcd409f69cf
           msg-type: 'text'
           message: |
             🚀 GitHub Action 测试通知 (自建应用)
